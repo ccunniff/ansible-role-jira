@@ -1,0 +1,11 @@
+---
+- name: Place symlinks in the run-level directories
+  command: "update-rc.d jira defaults"
+  listen: "start jira"
+
+- name: Start Jira service
+  service:
+    name: jira
+    state: started
+    enabled: yes
+  listen: "start jira"

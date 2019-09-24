@@ -1,0 +1,15 @@
+---
+- name: Check for user provided java_packages.
+  set_fact:
+    java_packages_override: "{{ java_packages | default(__java_packages) }}"
+
+- name: Install Java.
+  include_role:
+    name: geerlingguy.java
+  vars:
+    java_packages: "{{ java_packages_override }}"
+
+- name: Lookup Java home.
+  shell: "dirname $(dirname $(readlink -f $(which javac)))"
+  changed_when: false
+  register: java_home_output

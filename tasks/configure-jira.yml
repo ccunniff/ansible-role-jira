@@ -1,0 +1,31 @@
+---
+- name: Create directories
+  file:
+    path: "{{ item }}"
+    state: directory
+  loop:
+    - "{{ jira_installation }}"
+    - "{{ jira_home }}"
+
+- name: Unarchive a file that is already on the remote machine
+  unarchive:
+    src: "{{ jira_download_base_url }}/atlassian-jira-software-{{ jira_version }}.tar.gz"
+    dest: "{{ jira_installation }}"
+    remote_src: yes
+    creates: "{{ jira_installation }}/bin"
+    extra_opts:
+      - "--strip-components=1"
+
+- name: Set Jira home
+  lineinfile:
+    path: "{{ jira_installation }}/atlassian-jira/WEB-INF/classes/jira-application.properties"
+    regexp: '^jira\.home'
+    line: "jira.home = {{ jira_home }}"
+
+- name: Configure Jira service
+  template:
+    src: jira.j2
+    dest: /etc/init.d/jira
+    mode: '0755'
+  notify:
+    - start jira

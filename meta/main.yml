@@ -1,0 +1,15 @@
+---
+galaxy_info:
+  author: ccunniff
+  description: Jira for Linux
+  license: license (BSD, MIT)
+  min_ansible_version: 2.6
+  platforms:
+  - name: Ubuntu
+    versions:
+      - xenial
+  galaxy_tags:
+    - jira
+    - atlassian
+dependencies:
+  - geerlingguy.java

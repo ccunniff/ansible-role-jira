@@ -1,0 +1,6 @@
+---
+jira_version: 8.4.1
+jira_user: root
+jira_installation: /opt/atlassian/jira
+jira_home: /var/atlassian/application-data/jira
+jira_download_base_url: https://www.atlassian.com/software/jira/downloads/binary
